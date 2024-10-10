@@ -122,31 +122,44 @@ class Delete extends React.Component {
 }
 
 class Homepage extends React.Component {
-  constructor() {
-    super();
-  }
   render() {
+    const totalSeats = 30; 
+    const { travellers } = this.props;
+
+    const seatNumbers = Array.from({ length: totalSeats }, (_, i) => i + 1);
+
+    const occupiedSeats = travellers.map(traveller => traveller.seatNumber);
+
+    const freeSeats = totalSeats - occupiedSeats.length;
+    const freePercentage = ((freeSeats / totalSeats) * 100).toFixed(2);
+    const occupiedPercentage = ((occupiedSeats.length / totalSeats) * 100).toFixed(2);
+
     return (
       <div>
+        <h2>Seat Reservation Overview</h2>
         <div className="seats-container">
-          {[...Array(10)].map((_, index) => {
-            const occupied = this.props.travellers.some(
-              (traveller) => traveller.seatNumber === index + 1
-            );
+          {seatNumbers.map(number => {
+            const isOccupied = occupiedSeats.includes(number);
             return (
               <button
-                key={index}
-                className={occupied ? 'seat occupied' : 'seat free'}
+                key={number}
+                className={`seat ${isOccupied ? 'occupied' : 'free'}`}
+                title={`Seat ${number} ${isOccupied ? 'Reserved' : 'Available'}`}
               >
-                {occupied ? 'X' : 'O'}
+                {number}
               </button>
             );
           })}
+        </div>
+        <div className="percentage-display">
+          <p>Available Seats: {freePercentage}%</p>
+          <p>Reserved Seats: {occupiedPercentage}%</p>
         </div>
       </div>
     );
   }
 }
+
 
 class TicketToRide extends React.Component {
   constructor() {
