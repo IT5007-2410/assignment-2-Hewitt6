@@ -122,6 +122,20 @@ class Homepage extends React.Component {
 	return (
 	<div>
 		{/*Q2. Placeholder for Homepage code that shows free seats visually.*/}
+    {/* Placeholder for Homepage code that shows free seats visually */}
+    <div className="seats-container">
+      {[...Array(10)].map((_, index) => {
+        const occupied = this.props.travellers.some(traveller => traveller.seatNumber === index + 1);
+        return (
+          <button
+            key={index}
+            className={occupied ? 'seat occupied' : 'seat free'}
+          >
+            {occupied ? 'X' : 'O'}
+          </button>
+        );
+      })}
+    </div>
 	</div>);
 	}
 }
@@ -136,6 +150,7 @@ class TicketToRide extends React.Component {
   setSelector(value)
   {
   	/*Q2. Function to set the value of component selector variable based on user's button click.*/
+    this.setState({ selector: value });
   }
   componentDidMount() {
     this.loadData();
