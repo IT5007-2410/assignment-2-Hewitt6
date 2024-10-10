@@ -199,6 +199,11 @@ class TicketToRide extends React.Component {
         <h1>Ticket To Ride</h1>
 	<div>
 	    {/*Q2. Code for Navigation bar. Use basic buttons to create a nav bar. Use states to manage selection.*/}
+      {/* Navigation bar */}
+      <button onClick={() => this.setSelector(1)}>Home</button>
+      <button onClick={() => this.setSelector(2)}>Display Travellers</button>
+      <button onClick={() => this.setSelector(3)}>Add Traveller</button>
+      <button onClick={() => this.setSelector(4)}>Delete Traveller</button>
 	</div>
 	<div>
 		{/*Only one of the below four divisions is rendered based on the button clicked by the user.*/}
@@ -207,8 +212,11 @@ class TicketToRide extends React.Component {
 		
 		{/*Q4. Code to call the component that adds a traveller.*/}
 		{/*Q5. Code to call the component that deletes a traveller based on a given attribute.*/}
-    <Add bookTraveller={this.bookTraveller} />
-    <Delete delfunction={this.deleteTraveller} />
+    {/* Conditional rendering */}
+    {this.state.selector === 1 && <Homepage travellers={this.state.travellers} />}
+    {this.state.selector === 2 && <Display travellers={this.state.travellers} />}
+    {this.state.selector === 3 && <Add bookTraveller={this.bookTraveller} />}
+    {this.state.selector === 4 && <Delete delfunction={this.deleteTraveller} />}
 	</div>
       </div>
     );
